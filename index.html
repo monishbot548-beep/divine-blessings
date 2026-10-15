@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Divine Blessings</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Georgia, serif;
+    color: #fff4d5;
+    text-align: center;
+    padding: 35px 16px;
+    background:
+        radial-gradient(ellipse at top, #8c4b1c 0%, transparent 55%),
+        linear-gradient(140deg, #190d08, #54260e, #160b07);
+}
+
+.temple {
+    max-width: 850px;
+    margin: auto;
+    padding: 25px 18px;
+    border: 1px solid #d9aa55;
+    border-radius: 22px;
+    background: rgba(24, 10, 4, 0.65);
+    box-shadow: 0 0 35px #c78a3033;
+}
+
+.bells {
+    font-size: 35px;
+    letter-spacing: 12px;
+    margin: 10px 0 20px;
+}
+
+h1 {
+    color: #ffd77b;
+    font-size: clamp(30px, 6vw, 48px);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #f3d9a2;
+    line-height: 1.7;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 30px 0;
+}
+
+button {
+    background: linear-gradient(#f9d88c, #bd772a);
+    color: #321608;
+    border: 1px solid #ffe9b0;
+    border-radius: 30px;
+    padding: 14px 25px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 135px;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}
+
+#display {
+    display: none;
+    margin: 25px auto 10px;
+    max-width: 600px;
+    animation: appear 0.6s ease;
+}
+
+#display img {
+    display: block;
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 15px;
+    border: 2px solid #d9aa55;
+    background: #160b07;
+}
+
+#caption {
+    color: #ffd77b;
+    font-size: 24px;
+    margin: 18px 0 8px;
+}
+
+#message {
+    color: #f3d9a2;
+    line-height: 1.6;
+}
+
+footer {
+    color: #d8b987;
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+<main class="temple">
+    <div class="bells">🔔 🪔 🔔</div>
+
+    <h1>Divine Blessings</h1>
+    <p class="subtitle">
+        With faith in our hearts and peace in our minds,<br>
+        may divine blessings always be with us.
+    </p>
+
+    <div class="buttons">
+        <button onclick="showPerson('sundar')">🙏 Sundar</button>
+        <button onclick="showPerson('mother')">🪷 Mother</button>
+        <button onclick="showPerson('brother')">🏛️ Brother</button>
+    </div>
+
+    <section id="display" aria-live="polite">
+        <h2 id="caption"></h2>
+        <img id="picture" src="" alt="Selected devotional image">
+        <p id="message"></p>
+    </section>
+
+    <footer>ॐ Peace • Faith • Blessings ॐ</footer>
+</main>
+
+<script>
+const people = {
+    sundar: {
+        title: "Lord Shiva",
+        message: "May Lord Shiva bless you with strength, peace and happiness.",
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Shiva.jpg"
+    },
+    mother: {
+        title: "Lord Murugan",
+        message: "May Lord Murugan guide you with courage, wisdom and grace.",
+        image: "https://commons.wikimedia.org/wiki/Special:FilePath/Murugan.jpg"
+    },
+    brother: {
+        title: "College Blessings",
+        message: "May your education bring knowledge, success and a bright future.",
+        image: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1000&q=85"
+    }
+};
+
+function showPerson(person) {
+    const selected = people[person];
+    const display = document.getElementById("display");
+    const picture = document.getElementById("picture");
+
+    document.getElementById("caption").textContent = selected.title;
+    document.getElementById("message").textContent = selected.message;
+
+    picture.alt = selected.title;
+    picture.onerror = function () {
+        this.onerror = null;
+        this.alt = selected.title +
+            " image could not load. Please replace its image URL in the code.";
+        this.style.minHeight = "180px";
+    };
+    picture.src = selected.image;
+
+    display.style.display = "block";
+    display.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+</script>
+</body>
+</html>
